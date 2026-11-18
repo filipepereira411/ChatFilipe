@@ -1,8 +1,7 @@
-[README.md](https://github.com/user-attachments/files/35044741/README.md)
-
+[README.md](https://github.com/user-attachments/files/35044822/README.md)
 # ChatFilipe — atalhos para o Radmin
 
-Esta pasta não contém agente, serviço nem servidor. É apenas um ajudante para abrir o **Radmin Viewer** a partir do painel `dispositivos-via-ip\dispositivos_ip.html`.
+Esta pasta não contém agente, serviço nem servidor. O painel `chatfilipe.html` gere os dispositivos por IP e inclui atalhos para abrir o **Radmin Viewer**.
 
 ## Como funciona
 
