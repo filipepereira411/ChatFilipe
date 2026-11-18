@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+; Registo por utilizador (nao pede administrador).
+; Depois de executar, o botao "Abrir no Radmin" do painel passa a arrancar o Radmin Viewer.
+
+[HKEY_CURRENT_USER\Software\Classes\radfilipe]
+@="URL: RadFilipe Protocol"
+"URL Protocol"=""
+
+[HKEY_CURRENT_USER\Software\Classes\radfilipe\shell\open\command]
+@="\"C:\\Users\\JCPereira\\Desktop\\Filipe Pereira\\ChatFilipe\\abrir-radfilipe.cmd\" \"%1\""

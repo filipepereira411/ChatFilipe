@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>ChatFilipe — Painel de dispositivos</title>
+  <link rel="stylesheet" href="css/chatfilipe.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">IP</div>
+        <div>
+          <h1>Dispositivos via IP</h1>
+          <p>Controlo de periféricos e tomadas em rede</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button type="button" id="btn-add" class="btn btn-primary">+ Adicionar dispositivo</button>
+        <button type="button" id="btn-demo" class="btn" aria-pressed="false">Modo demo</button>
+        <button type="button" id="btn-export" class="btn">Exportar</button>
+        <label class="btn btn-file" title="Importar lista JSON">
+          Importar
+          <input type="file" id="file-import" accept="application/json,.json" hidden>
+        </label>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Resumo">
+      <div class="stat">
+        <span class="stat-label">Dispositivos</span>
+        <strong id="stat-total">0</strong>
+        <span class="stat-foot">configurados</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Online</span>
+        <strong id="stat-online" class="accent-green">0</strong>
+        <span class="stat-foot">respondem ao pedido</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Ligados</span>
+        <strong id="stat-on" class="accent-cyan">0</strong>
+        <span class="stat-foot">estado ativo</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Comandos</span>
+        <strong id="stat-commands">0</strong>
+        <span class="stat-foot">nesta sessão</span>
+      </div>
+    </section>
+
+    <main class="layout">
+      <section class="panel" aria-labelledby="titulo-dispositivos">
+        <div class="panel-head">
+          <div>
+            <h2 id="titulo-dispositivos">Dispositivos</h2>
+            <p class="hint">Clica em <strong>Verificar todos</strong> para atualizar a disponibilidade.</p>
+          </div>
+          <div class="panel-tools">
+            <input type="search" id="search" placeholder="Pesquisar nome ou IP…" aria-label="Pesquisar dispositivos">
+            <button type="button" id="btn-check-all" class="btn btn-small">Verificar todos</button>
+          </div>
+        </div>
+        <div id="list" class="grid" aria-live="polite"></div>
+        <div id="empty" class="empty" hidden>
+          <div class="empty-icon" aria-hidden="true">⌁</div>
+          <h3>Ainda não há dispositivos</h3>
+          <p>Adiciona o primeiro pelo botão <strong>+ Adicionar dispositivo</strong> ou ativa o <strong>Modo demo</strong> para ver um exemplo.</p>
+        </div>
+      </section>
+
+      <aside class="panel log-panel" aria-labelledby="titulo-log">
+        <div class="panel-head">
+          <div>
+            <h2 id="titulo-log">Atividade</h2>
+            <p class="hint">Últimos comandos e verificações.</p>
+          </div>
+          <button type="button" id="btn-clear-log" class="btn btn-small btn-ghost">Limpar</button>
+        </div>
+        <ol id="log" class="log" aria-live="polite"></ol>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <span>Configuração guardada apenas neste navegador (localStorage).</span>
+      <span>Para controlo total por Radmin, usa o botão <em>Abrir no Radmin</em> (atalho em <em>ChatFilipe</em>).</span>
+    </footer>
+  </div>
+
+  <div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-card">
+      <form id="device-form">
+        <div class="modal-head">
+          <h2 id="modal-titulo">Adicionar dispositivo</h2>
+          <button type="button" id="btn-close-modal" class="icon-btn" aria-label="Fechar">×</button>
+        </div>
+
+        <div class="form-body">
+          <div class="field">
+            <label for="f-host">Endereço IP do dispositivo</label>
+            <input id="f-host" name="host" type="text" placeholder="192.168.1.50" required maxlength="120" autocomplete="off" autofocus>
+          </div>
+
+          <div class="field">
+            <label for="f-nome">Nome <span class="opcional">(opcional — gerado a partir do IP se ficar vazio)</span></label>
+            <input id="f-nome" name="nome" type="text" placeholder="Ex.: PC do escritório" maxlength="60">
+          </div>
+
+          <div class="field">
+            <label for="f-tipo">Tipo de dispositivo</label>
+            <select id="f-tipo" name="tipo">
+              <option value="pc">PC / servidor</option>
+              <option value="tasmota">Tomada Tasmota / ESPHome</option>
+              <option value="shelly">Tomada Shelly Gen1</option>
+              <option value="generico">Dispositivo HTTP genérico</option>
+            </select>
+          </div>
+
+          <p class="hint">Os comandos, a porta (80) e o resto das opções já vêm definidos no código. Basta indicar o IP.</p>
+        </div>
+
+        <div class="modal-foot">
+          <button type="button" id="btn-cancel" class="btn">Cancelar</button>
+          <button type="submit" id="btn-save" class="btn btn-primary">Guardar dispositivo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+
+  <script src="js/chatfilipe.js" defer></script>
+</body>
+</html>
